@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 def dataLoad(filename, Nx, Ny, Nz):
     
@@ -38,9 +37,9 @@ def dataLoad(filename, Nx, Ny, Nz):
                     index_1d=z+y*Nz+x*Ny*Nz
                     array_3d[z,y,x]=array_1d[index_1d]
         data=array_3d
-        print(data)
-#=============================================================================
+#==============================================================================
         #Alternative (working) 3D array arrangment
+#==============================================================================
         #data=array_1d.reshape((Nx, Ny, Nz))
         #data=np.transpose(data, (2, 1, 0))
 #==============================================================================
@@ -50,14 +49,13 @@ def dataLoad(filename, Nx, Ny, Nz):
 
 
 def dataStatistics(data, statistic, Yref=None, Zref=None, DeltaX=None):
-    
-    #Reshaping [Nz x Ny x Nx] array to [Nx x Ny x Nz] for further stats calculations
+#===============================================================================    
+#Reshaping [Nz x Ny x Nx] array to [Nx x Ny x Nz] for further stats calculations
+#==============================================================================
     
     data=data.transpose((2,1,0))#Delete this if we are using transpose up in dataLoad
     result=np.zeros((data.shape[1], data.shape[2]))
     Nx, Ny, Nz = data.shape
-    # print(data)
-    # print(array_yz)
     
 # =============================================================================
 #                   Creating if statements for stats calculations
@@ -94,15 +92,10 @@ def dataStatistics(data, statistic, Yref=None, Zref=None, DeltaX=None):
         if Yref is None or Zref is None or DeltaX is None:
             raise ValueError('Yref, Zref, and DeltaX must be provided for cross-correlation calculation')
         
-        #Assigning variables for cross-correlation calculations
-        
+        #Assigning variables for cross-correlation calculations      
         lower_bound=0
         upper_bound=Nx-DeltaX
-        # print(data.shape[0])
-        # print(data.shape[1])
-        # print(data.shape[2])
 
-        
         #Creating an empty 3D array to store multiplied elements
         multiply_array=np.zeros((Nx-DeltaX,Ny,Nz))
         
@@ -115,11 +108,88 @@ def dataStatistics(data, statistic, Yref=None, Zref=None, DeltaX=None):
         result=np.round(summation/(Nx-DeltaX),3)
     assert result.shape==(Ny,Nz),(f'Erorr:{statistic} has invalid shape')
     return result
+
 def dataPlot (data, statistic):
     
 # =============================================================================
 # [1]-Contour plots
 # =============================================================================
+    # if statistic == 'Mean':
+        
+    #     print('Mean plot has been successfully generated. Continue if needed or enter [4]')
+        
+    #     #Creating x, y coordiantes for the contour plot
+    #     x=np.arange(data.shape[1])
+    #     y=np.arange(data.shape[0])
+    #     X,Y=np.meshgrid(x,y)
+        
+    #     #Creating the contour plot
+    #     fig,ax=plt.subplots()
+    #     contour=ax.contourf(X,Y, data)
+    #     fig.colorbar(contour)
+        
+    #     #Setting the title and axis labels
+    #     ax.set_title(f'Contour Plot of Mean array with size {data.shape[0]}x{data.shape[1]}')
+    #     ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
+    #     ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
+        
+    #     #Show the plot
+    #     plt.show(block=False)
+        
+    #     return (dataPlot)
+    
+    # if statistic == 'Variance':
+        
+    #     print('Variance plot has been successfully generated. Continue if needed or enter [4]')
+        
+    #     #Creating x, y coordiantes for the contour plot
+    #     x=np.arange(data.shape[1])
+    #     y=np.arange(data.shape[0])
+    #     X,Y=np.meshgrid(x,y)
+        
+    #     #Creating the contour plot
+    #     fig,ax=plt.subplots()
+    #     contour=ax.contourf(X,Y, data)
+    #     fig.colorbar(contour)
+        
+    #     #Setting the title and axis labels
+    #     ax.set_title(f'Contour Plot of Variance array with size {data.shape[0]}x{data.shape[1]}')
+    #     ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
+    #     ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
+        
+    #     #Show the plot
+    #     plt.show(block=False)
+        
+    #     return (dataPlot)
+    
+    # if statistic == 'Cross-Correlation':
+        
+    #     print('Cross-Correlation plot has been successfully generated. Continue if needed or enter [4]')
+        
+    #     #Creating x, y coordiantes for the contour plot
+    #     x=np.arange(data.shape[1])
+    #     y=np.arange(data.shape[0])
+    #     X,Y=np.meshgrid(x,y)
+        
+    #     #Creating the contour plot
+    #     fig,ax=plt.subplots()
+    #     contour=ax.contourf(X,Y, data)
+    #     fig.colorbar(contour)
+        
+    #     #Setting the title and axis labels
+    #     ax.set_title(f'Contour Plot of Cross-correlation array with size {data.shape[0]}x{data.shape[1]}')
+    #     ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
+    #     ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
+        
+    #     #Show the plot
+    #     plt.show(block=False)
+        
+    #     return (dataPlot)
+
+# =============================================================================
+# [2] - Surface Plot:
+# =============================================================================
+
     if statistic == 'Mean':
         
         print('Mean plot has been successfully generated. Continue if needed or enter [4]')
@@ -129,13 +199,14 @@ def dataPlot (data, statistic):
         y=np.arange(data.shape[0])
         X,Y=np.meshgrid(x,y)
         
-        #Creating the contour plot
-        fig,ax=plt.subplots()
-        contour=ax.contourf(X,Y, data)
-        fig.colorbar(contour)
+        #Creating the surface plot
+        fig=plt.figure()
+        ax=fig.add_subplot(111,projection='3d')
+        surf=ax.plot_surface(X, Y, data, cmap='coolwarm')
+        fig.colorbar(surf)
         
         #Setting the title and axis labels
-        ax.set_title(f'Contour Plot of Mean array with size {data.shape[0]}x{data.shape[1]}')
+        ax.set_title(f'Surface Plot of Mean array with size {data.shape[0]}x{data.shape[1]}')
         ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
         ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
         
@@ -153,13 +224,14 @@ def dataPlot (data, statistic):
         y=np.arange(data.shape[0])
         X,Y=np.meshgrid(x,y)
         
-        #Creating the contour plot
-        fig,ax=plt.subplots()
-        contour=ax.contourf(X,Y, data)
-        fig.colorbar(contour)
+        #Creating the surface plot
+        fig=plt.figure()
+        ax=fig.add_subplot(111,projection='3d')
+        surf=ax.plot_surface(X, Y, data, cmap='coolwarm')
+        fig.colorbar(surf)
         
         #Setting the title and axis labels
-        ax.set_title(f'Contour Plot of Variance array with size {data.shape[0]}x{data.shape[1]}')
+        ax.set_title(f'Surface Plot of Variance array with size {data.shape[0]}x{data.shape[1]}')
         ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
         ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
         
@@ -177,96 +249,21 @@ def dataPlot (data, statistic):
         y=np.arange(data.shape[0])
         X,Y=np.meshgrid(x,y)
         
-        #Creating the contour plot
-        fig,ax=plt.subplots()
-        contour=ax.contourf(X,Y, data)
-        fig.colorbar(contour)
+        #Creating the surface plot
+        fig=plt.figure()
+        ax=fig.add_subplot(111,projection='3d')
+        surf=ax.plot_surface(X, Y, data, cmap='coolwarm')
+        fig.colorbar(surf)
         
         #Setting the title and axis labels
-        ax.set_title(f'Contour Plot of Cross-correlation array with size {data.shape[0]}x{data.shape[1]}')
+        ax.set_title(f'Surface Plot of Cross-correlation array with size {data.shape[0]}x{data.shape[1]}')
         ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
         ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
         
         #Show the plot
         plt.show(block=False)
         
-        return (dataPlot)
-
-# =============================================================================
-# [2] - Surface Plot:
-# =============================================================================
-
-    # if statistic == 'Mean':
-        
-    #     #Creating x, y coordiantes for the contour plot
-    #     x=np.arange(data.shape[1])
-    #     y=np.arange(data.shape[0])
-    #     X,Y=np.meshgrid(x,y)
-        
-    #     #Creating the surface plot
-    #     fig=plt.figure()
-    #     ax=fig.add_subplot(111,projection='3d')
-    #     surf=ax.plot_surface(X, Y, data, cmap='coolwarm')
-    #     fig.colorbar(surf)
-        
-    #     #Setting the title and axis labels
-    #     ax.set_title(f'Surface Plot of Mean array with size {data.shape[1]}x{data.shape[0]}')
-    #     ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
-    #     ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
-    #     ax.set('Value')
-        
-    #     #Show the plot
-    #     plt.show()
-        
-    #     return (dataPlot)
-    
-    # if statistic == 'Variance':
-        
-    #     #Creating x, y coordiantes for the contour plot
-    #     x=np.arange(data.shape[1])
-    #     y=np.arange(data.shape[0])
-    #     X,Y=np.meshgrid(x,y)
-        
-    #     #Creating the surface plot
-    #     fig=plt.figure()
-    #     ax=fig.add_subplot(111,projection='3d')
-    #     surf=ax.plot_surface(X, Y, data, cmap='coolwarm')
-    #     fig.colorbar(surf)
-        
-    #     #Setting the title and axis labels
-    #     ax.set_title(f'Surface Plot of Variance array with size {data.shape[1]}x{data.shape[0]}')
-    #     ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
-    #     ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
-    #     ax.set('Value')
-        
-    #     #Show the plot
-    #     plt.show()
-        
-    #     return (dataPlot)
-    
-    # if statistic == 'Cross-correlation':
-        
-    #     #Creating x, y coordiantes for the contour plot
-    #     x=np.arange(data.shape[1])
-    #     y=np.arange(data.shape[0])
-    #     X,Y=np.meshgrid(x,y)
-        
-    #     #Creating the surface plot
-    #     fig=plt.figure()
-    #     ax=fig.add_subplot(111,projection='3d')
-    #     surf=ax.plot_surface(X, Y, data, cmap='coolwarm')
-    #     fig.colorbar(surf)
-        
-    #     #Setting the title and axis labels
-    #     ax.set_title(f'Surface Plot of Cross-correlation array with size {data.shape[1]}x{data.shape[0]}')
-    #     ax.set_xlabel('Wind speed in z direction (Vz (m/s)')
-    #     ax.set_ylabel('Wind speed in y direction (Vy (m/s)')
-    #     ax.set('Value')
-        
-    #     #Show the plot
-    #     plt.show()
-        
-    #     return (dataPlot)     
+        return (dataPlot)     
         
 
         

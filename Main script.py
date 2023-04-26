@@ -16,6 +16,7 @@ if __name__=='__main__':
     Yref=None
     Zref=None
     DeltaX=None
+    #statistics_calculated=False
     
     while True:
         
@@ -46,9 +47,6 @@ if __name__=='__main__':
         if user_input == 1:
             matrix_3d=dataLoader()
             if matrix_3d is not None:
-                print(f'{matrix_3d.shape[2]}')
-                print(f'{matrix_3d.shape[1]}')
-                print(f'{matrix_3d.shape[0]}')
                 Nx=matrix_3d.shape[2]
                 Ny=matrix_3d.shape[1]
                 Nz=matrix_3d.shape[0]
@@ -79,11 +77,12 @@ if __name__=='__main__':
                                                    "[4] Return to the the main menu\n"+
                                                    ">>"))
                     if user_input_statistic ==1:
-                        mean=dataStatistics(matrix_3d, statistic[user_input_statistic - 1])
+                        mean=dataStatistics(matrix_3d, statistic[user_input_statistic - 1]) #Calling mean function to return result
                         print()
                         print(f'The {statistic[user_input_statistic-1]} values for each point in the Ny x Nz matrix are:\n')
-                        print(mean)
+                        print(mean) #Printing result
                         #statistics_calculated=True
+                        
                     elif user_input_statistic == 2:
                         variance=dataStatistics(matrix_3d, statistic[user_input_statistic - 1])
                         print()
@@ -151,30 +150,10 @@ if __name__=='__main__':
                             
                         cross_cor=dataStatistics(matrix_3d, statistic[user_input_statistic - 1], Yref, Zref, DeltaX)
                         print()
-                        print(f'The {statistic[user_input_statistic-1]} are:\n')
+                        print(f'The {statistic[user_input_statistic-1]} values are:\n')
                         print(cross_cor)
                         #statistics_calculated=True
                             
-                            
-                            
-                            
-                            # Zref=input('Zref: ').strip()
-                            # DeltaX=input('DeltaX: ').strip()
-                            # if Yref.isdigit() and Zref.isdigit() and DeltaX.isdigit():
-                            #     Yref=int(Yref)
-                            #     Zref=int(Zref)
-                            #     DeltaX=int(DeltaX)
-                            #     cross_cor=dataStatistics(matrix_3d, statistic[user_input_statistic - 1], Yref, Zref, DeltaX)
-                            #     print()
-                            #     print(f'The {statistic[user_input_statistic-1]} are:\n')
-                            #     print(cross_cor)
-                            #     #statistics_calculated=True
-                            #     break
-                            # else:
-                            #     print('┏' + '━'*40 + '┓\n'+
-                            #           '┃Please enter integer values for Yref, Zref, and DeltaX.┃\n'+
-                            #           '┗' + '━'*40 + '┛\n')
-                            #     continue
 
                     elif user_input_statistic == 4:
                         break
@@ -194,7 +173,7 @@ if __name__=='__main__':
                 print('+'+'-'*40+'+\n'+
                       '|' + ' '*16 + 'WARNING!' + ' '*16 + '|\n'+
                       '|' + ' '*3 + 'Please load data before continuing' + ' '*3 + '|\n'+
-                      '+' + '-'*40 + '+') #if not, print
+                      '+' + '-'*40 + '+') 
             # elif not statistics_calculated:
             #     print()
             #     print('+'+'-'*40+'+\n'+
