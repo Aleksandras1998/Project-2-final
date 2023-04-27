@@ -32,13 +32,13 @@ if __name__=='__main__':
                                  '>>'))
             if user_input >4 or user_input<1:
 
-                print('+'+'-'*40+'+')
-                print('|' + ' '*16 + 'WARNING!' + ' '*16 + '|')
-                raise ValueError('|' + ' '*3 + 'Select a number from the Main menu' + ' '*3 + '|')
+                print('+'+'-'*52+'+')
+                print('|' + ' '*22 + 'WARNING!' + ' '*22 + '|')
+                raise ValueError('|' + ' '*9 + 'Select a number from the Main menu' + ' '*9 + '|')
         except ValueError as e:
             print(e)
-            print('|' + ' '*12 + 'Please try again by inserting a number from 1 to 4' + ' '*12 + '|')
-            print('+' + '-'*40 + '+')
+            print('|' + ' '*1 + 'Please try again by inserting a number from 1 to 4' + ' '*1 + '|')
+            print('+' + '-'*52 + '+')
             
             continue
 # =============================================================================
@@ -79,78 +79,105 @@ if __name__=='__main__':
                     if user_input_statistic ==1:
                         mean=dataStatistics(matrix_3d, statistic[user_input_statistic - 1]) #Calling mean function to return result
                         print()
-                        print(f'The {statistic[user_input_statistic-1]} values for each point in the Ny x Nz matrix are:\n')
+                        print('┏' + '━'*57 + '┓\n'+
+                             f'┃The {statistic[user_input_statistic-1]} values for each point in the Ny x Nz matrix are:┃\n'+
+                              '┗' + '━'*57 + '┛\n')
                         print(mean) #Printing result
                         #statistics_calculated=True
                         
                     elif user_input_statistic == 2:
                         variance=dataStatistics(matrix_3d, statistic[user_input_statistic - 1])
                         print()
-                        print(f'The {statistic[user_input_statistic-1]} values for each point in the Ny x Nz matrix are:\n')
+                        print('┏' + '━'*61 + '┓\n'+
+                             f'┃The {statistic[user_input_statistic-1]} values for each point in the Ny x Nz matrix are:┃\n'+
+                              '┗' + '━'*61 + '┛\n')
                         print(variance)
                         #statistics_calculated=True
                         
                     elif user_input_statistic == 3:
-                        print('┏' + '━'*38 + '┓\n'+
-                              '┃Please enter Yref, Zref, DeltaX values┃\n'+
-                              '┗' + '━'*38 + '┛\n')
+                        print('┏' + '━'*65 + '┓\n'+
+                              '┃Please enter Yref, Zref, Δx values to calculate Cross-correlation┃\n'+
+                              '┗' + '━'*65 + '┛\n')
                         while True:
-                            Yref=input(f'Please enter Yref value in the range[0,{Ny}).\n'+
+                            Yref=input('┏' + '━'*36 + '┓\n'+
+                                      f'┃Enter Yref value in the range [0,{Ny})┃\n'+
+                                       '┗' + '━'*36+ '┛\n'+
                                        'Yref:').strip()
                             if Yref.isdigit():
                                 Yref=int(Yref)
                                 
                                 #Checking if Yref is not out of bound
                                 if Yref<0 or Yref>=Ny:
-                                    print(f'Error: Zref should be within the range[0,{Ny}). Please try again')
+                                    print('+' + '-' * 37 + '+\n' +
+                                          '|' + ' ' * 15 + 'ERROR!' + ' ' * 16 + '|\n' +
+                                         f'|Yref should be within the range[0,{Ny})|\n'+
+                                          '|' + ' '*10 + ' Please try again' + ' '*10 + '|\n'+
+                                          '+' + '-' * 37 + '+')
                                     continue 
                                 else:
                                     break
                             else:
-                                print('┏' + '━'*40 + '┓\n'+
+                                print()
+                                print('┏' + '━'*37 + '┓\n'+
                                       '┃Please enter integer values for Yref.┃\n'+
-                                      '┗' + '━'*40 + '┛\n')
+                                      '┗' + '━'*37 + '┛\n')
                                 continue
                             
                         while True:
-                            Zref=input(f'Please enter Zref value in the range[0,{Nz}).\n'+
+                            Zref=input('┏' + '━'*37 + '┓\n'+
+                                      f'┃Enter Zref value in the range[0,{Nz})┃\n'+
+                                       '┗' + '━'*37+ '┛\n'+
                                        'Zref:').strip()
                             if Zref.isdigit():
                                 Zref=int(Zref)
                                 
                                 #Checking if Zref is not out of bound
                                 if Zref<0 or Zref>=Nz:
-                                    print(f'Error: Zref should be within the range[0,{Nz}). Please try again')
+                                    print('+' + '-' * 39 + '+\n' +
+                                          '|' + ' ' * 16 + 'ERROR!' + ' ' * 17 + '|\n' +
+                                         f'|Zref should be within the range[0,{Nz})|\n'+
+                                          '|' + ' '*11 + ' Please try again' + ' '*11 + '|\n'+
+                                          '+' + '-' * 39 + '+')
                                     continue 
                                 else:
                                     break
                             else:
-                                print('┏' + '━'*40 + '┓\n'+
+                                print()
+                                print('┏' + '━'*37 + '┓\n'+
                                       '┃Please enter integer values for Zref.┃\n'+
-                                      '┗' + '━'*40 + '┛\n')
+                                      '┗' + '━'*37 + '┛\n')
                                 continue
                             
                         while True:
-                            DeltaX=input(f'Please enter DeltaX value in the range[0,{Nx}).\n'+
-                                       'DeltaX:').strip()
+                            DeltaX=input('┏' + '━'*33 + '┓\n'+
+                                        f'┃Enter Δx value in the range[0,{Nx})┃\n'+
+                                         '┗' + '━'*33+ '┛\n'+
+                                         'Δx:').strip()
                             if DeltaX.isdigit():
                                 DeltaX=int(DeltaX)
                                 
                                 #Checking if DeltaX is not out of bound
                                 if DeltaX<0 or DeltaX>=Nx:
-                                    print(f'Error: DeltaX should be within the range[0,{Nx}). Please try again')
+                                    print('+' + '-' * 35 + '+\n' +
+                                          '|' + ' ' * 14 + 'ERROR!' + ' ' * 15 + '|\n' +
+                                         f'|Δx should be within the range[0,{Nx})|\n'+
+                                          '|' + ' '*9 + ' Please try again' + ' '*9 + '|\n'+
+                                          '+' + '-' * 35 + '+')
                                     continue 
                                 else:
                                     break
-                        else:
-                            print('┏' + '━'*40 + '┓\n'+
-                                  '┃Please enter integer values for DeltaX.┃\n'+
-                                  '┗' + '━'*40 + '┛\n')
+                            else:
+                                print()
+                                print('┏' + '━'*35 + '┓\n'+
+                                      '┃Please enter integer values for Δx.┃\n'+
+                                      '┗' + '━'*35 + '┛\n')
                             continue
                             
                         cross_cor=dataStatistics(matrix_3d, statistic[user_input_statistic - 1], Yref, Zref, DeltaX)
                         print()
-                        print(f'The {statistic[user_input_statistic-1]} values are:\n')
+                        print('┏' + '━'*33 + '┓\n'+
+                             f'┃The {statistic[user_input_statistic-1]} values are:┃\n'+
+                              '┗' + '━'*33 + '┛\n')
                         print(cross_cor)
                         #statistics_calculated=True
                             

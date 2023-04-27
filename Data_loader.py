@@ -23,7 +23,7 @@ def dataLoader():
                 message=('+' + '-' * (num_dashes+7) + '+\n'
                         f'| {" " * ((num_dashes - input_length - 24) // 2)}{user_input} needs to have .bin extension{" " * ((num_dashes - input_length - 24) // 2)} |\n'+
                         f'| {" " * ((num_dashes - input_length - 24) // 2 + 2)}Error loading data from {user_input}{" " * ((num_dashes - input_length - 24) // 2 + 3)} |\n'+
-                        f'| {" " * ((num_dashes - input_length - 24) // 2 + 9)}Please try again☺{" " * ((num_dashes - input_length - 24) // 2 + 9)}|\n'+
+                        f'| {" " * ((num_dashes - input_length - 24) // 2 + 10)}Please try again{" " * ((num_dashes - input_length - 24) // 2 + 9)} |\n'+
                         '+' + '-' * (num_dashes+7) + '+')
                 
                 #Printing the message
@@ -144,9 +144,10 @@ def dataLoader():
             num_dashes = filename_length + 28
             
             # Constructing the message with adjusted borders
+            print()
             message = ('+' + '-' * num_dashes + '+\n'
-                       f'| {" " * ((num_dashes - filename_length - 26) // 2)}Error loading data from {filename}.{" " * ((num_dashes - filename_length - 27) // 2)} |\n'+
-                       f'| {" " * ((num_dashes - filename_length - 26) // 2 + 8)}Please try again{" " * ((num_dashes - filename_length - 27) // 2 + 7)} |\n'+
+                       f'| {" " * ((num_dashes - filename_length - 26) // 2)}Error loading data from {filename}.{" " * ((num_dashes - filename_length - 25) // 2)}|\n'+
+                       f'| {" " * ((num_dashes - filename_length - 24) // 2 + 14)}Please try again{" " * ((num_dashes - filename_length - 24) // 2 + 14)} |\n'+
                        '+' + '-' * num_dashes + '+')
             
             #Printing the message

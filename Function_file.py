@@ -16,14 +16,20 @@ def dataLoad(filename, Nx, Ny, Nz):
         num_elements_in_file=array_1d.size
 
         if num_elements_in_file != input_num_elements:
-            print(f'Error: Number of elements in the {filename} file\n'+
-                  f'({num_elements_in_file}) does not match the expected number ({input_num_elements}))')
+            print()
+            print('+' + '-' * 64 + '+\n' +
+                  '|' + ' ' * 29 + 'ERROR!' + ' ' * 29 + '|\n' +
+                  f'| Number of elements in the {filename} is: ({num_elements_in_file}) |\n' +
+                  f'| {" " * 11}does not match the expected number ({input_num_elements}){" " * 12}|\n' +
+                  '|' + ' ' * 12 + 'Please check the input size of 3D array' + ' ' * 13 + '|\n' +
+                  '+' + '-' * 64 + '+')
+
             return None
         else:
-            print('╔' + '═'*49 + '╗\n'+
-                 f'║ Data loaded successfully from {filename} ║\n'+
+            print('╔' + '═'*62 + '╗\n'+
+                 f'║{" " * 4} Data loaded successfully from {filename}{" " * 4} ║\n'+
                  f'║ The number of elements in {filename} is: {num_elements_in_file} ║\n'+
-                  '╚' + '═'*49 + '╝')
+                  '╚' + '═'*62 + '╝')
             
 #=============================================================================
         #Creating an empty 3D array with the specified dimensions
@@ -116,6 +122,7 @@ def dataPlot (data, statistic):
 # =============================================================================
     # if statistic == 'Mean':
         
+    #     print()
     #     print('Mean plot has been successfully generated. Continue if needed or enter [4]')
         
     #     #Creating x, y coordiantes for the contour plot
@@ -140,6 +147,7 @@ def dataPlot (data, statistic):
     
     # if statistic == 'Variance':
         
+    #     print()        
     #     print('Variance plot has been successfully generated. Continue if needed or enter [4]')
         
     #     #Creating x, y coordiantes for the contour plot
@@ -164,6 +172,7 @@ def dataPlot (data, statistic):
     
     # if statistic == 'Cross-Correlation':
         
+    #     print()        
     #     print('Cross-Correlation plot has been successfully generated. Continue if needed or enter [4]')
         
     #     #Creating x, y coordiantes for the contour plot
@@ -192,6 +201,7 @@ def dataPlot (data, statistic):
 
     if statistic == 'Mean':
         
+        print()
         print('Mean plot has been successfully generated. Continue if needed or enter [4]')
         
         #Creating x, y coordiantes for the contour plot
@@ -217,6 +227,7 @@ def dataPlot (data, statistic):
     
     if statistic == 'Variance':
         
+        print()
         print('Variance plot has been successfully generated. Continue if needed or enter [4]')
         
         #Creating x, y coordiantes for the contour plot
@@ -242,6 +253,7 @@ def dataPlot (data, statistic):
     
     if statistic == 'Cross-Correlation':
         
+        print()
         print('Cross-Correlation plot has been successfully generated. Continue if needed or enter [4]')
         
         #Creating x, y coordiantes for the contour plot
