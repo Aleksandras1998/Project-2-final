@@ -70,16 +70,28 @@ if __name__=='__main__':
                 
                 
                 while True:
-                    user_input_statistic=int(input('┏' + '━'*40 + '┓\n'+
-                                                   '┃Please select which statistic to display┃\n'+
-                                                   '┗' + '━'*40 + '┛\n'+
-                                                   "[1] Mean\n" +
-                                                   "[2] Variance\n" +
-                                                   "[3] Cross-correlation\n"  +
-                                                   "[4] Return to the the main menu\n"+
-                                                  ">>"))
+                    try:
+
+                        user_input_statistic=int(input('┏' + '━'*40 + '┓\n'+
+                                                    '┃Please select which statistic to display┃\n'+
+                                                    '┗' + '━'*40 + '┛\n'+
+                                                    "[1] Mean\n" +
+                                                    "[2] Variance\n" +
+                                                    "[3] Cross-correlation\n"  +
+                                                    "[4] Return to the the main menu\n"+
+                                                    ">>"))
+                        if user_input > 4 or user_input<1:
+                            print('+'+'-'*52+'+')
+                            print('|' + ' '*22 + 'WARNING!' + ' '*22 + '|')
+                            raise ValueError('|' + ' '*9 + 'Select a number from the  menu' + ' '*9 + '|')
+                    except ValueError as e:
+                        print(e)
+                        print('|' + ' '*1 + 'Please try again by inserting a number from 1 to 4' + ' '*1 + '|')
+                        print('+' + '-'*52 + '+')
+                        
+                        continue
 # =============================================================================
-# [2.1]Mean calculation (Prabhlin)
+# [2.1]Mean calculation (Prabhlin, Karen)
 # =============================================================================
                     if user_input_statistic ==1:
                            
@@ -149,7 +161,7 @@ if __name__=='__main__':
                                 print()
                                 print('┏' + '━'*34 + '┓\n'+
                                       '┃Please enter integer values for Z.┃\n'+
-                                      '┗' + '━'*34 + '┛\n')
+                        +              '┗' + '━'*34 + '┛\n')
                                 continue
                             
                         
@@ -263,7 +275,7 @@ if __name__=='__main__':
                               '┗' + '━'*len(message_box) + '┛\n')
                         
 # =============================================================================
-# [2.3] Cross-correlation calculation (Aleksandras)
+# [2.3] Cross-correlation calculation (Aleksandras,Karen)
 # =============================================================================
 
                     elif user_input_statistic == 3:
@@ -490,14 +502,26 @@ if __name__=='__main__':
                 plots=['Mean','Variance','Cross-Correlation']
                 
                 while True:
-                    user_input_plot=int(input('┏' + '━'*40 + '┓\n'+
-                                              '┃' + ' '*2 + 'Please select which plot to generate' + ' '*2 + '┃\n'+
-                                              '┗' + '━'*40 + '┛\n'+
-                                              "[1] Mean\n" +
-                                              "[2] Variance\n" +
-                                              "[3] Cross-Correlation\n"  +
-                                              "[4] Return to the the main menu\n"+
-                                              ">>"))
+                    try:
+
+                        user_input_plot=int(input('┏' + '━'*40 + '┓\n'+
+                                                '┃' + ' '*2 + 'Please select which plot to generate' + ' '*2 + '┃\n'+
+                                                '┗' + '━'*40 + '┛\n'+
+                                                "[1] Mean\n" +
+                                                "[2] Variance\n" +
+                                                "[3] Cross-Correlation\n"  +
+                                                "[4] Return to the the main menu\n"+
+                                                ">>"))
+                        if user_input > 4 or user_input<1:
+                                print('+'+'-'*52+'+')
+                                print('|' + ' '*22 + 'WARNING!' + ' '*22 + '|')
+                                raise ValueError('|' + ' '*9 + 'Select a number from the  menu' + ' '*9 + '|')
+                    except ValueError as e:
+                            print(e)
+                            print('|' + ' '*1 + 'Please try again by inserting a number from 1 to 4' + ' '*1 + '|')
+                            print('+' + '-'*52 + '+')
+                        
+                            continue
 # =============================================================================
 # [3.1] Mean Plot (Prabhlin)
 # =============================================================================
