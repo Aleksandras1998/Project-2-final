@@ -1,7 +1,11 @@
-import re #In case if we would like to make some changes in Nx, Ny, Nz inputs
 from Function_file import dataLoad
 
 def dataLoader():
+    
+# =============================================================================
+#             Checking file format compliance (Aleksandras, Karen, Prabhlin) 
+# =============================================================================
+    
     while True:
         try:
             user_input = input('┏' + '━'*39 + '┓\n'+
@@ -34,10 +38,10 @@ def dataLoader():
             
 
 #=============================================================================
-# Creating selection options of Nx x Ny x Nz 
+#               Creating selection options of Nx x Ny x Nz (Aleksandras)
 #=============================================================================
               
-            size=['32 x 32 x 8192','16 x 32 x 16384','8 x 16 x 65536'] # there are plenty of possibilities for input       
+            size=['32 x 32 x 8192','16 x 32 x 16384','8 x 16 x 65536','128 x 128 x 512','256 x 256 x 128'] # there are plenty of possibilities for input       
             while True:
                 user_input_size=int(input('┏' + '━'*68 + '┓\n'+
                                           '┃Please select which size of 3D array you want to create (Nx x Ny Nz)┃\n'+
@@ -69,6 +73,10 @@ def dataLoader():
                 elif user_input_size == 5:
                     Nz, Ny, Nx=[int(val) for val in size[user_input_size-1].split(' x ')]
                     break 
+
+# =============================================================================
+#                  Creating option to "build 3D array yourself" (Karen)
+# =============================================================================
                 
                 elif user_input_size == 6:
 
@@ -123,9 +131,19 @@ def dataLoader():
                     break
                     
                 else:
-                    print("Invalid input. Please select a valid option.")
+                    print()
+                    message='Invalid input. Please select a valid option.'
+                    
+                    print('┏' + '━'*len(message) + '┓\n'+
+                         f'┃{message}┃\n'+
+                          '┗' + '━'*len(message) + '┛\n')
+
                     continue
-               
+
+# =============================================================================
+#          Calling dataLoad function and saving data in matrix_3d (Prabhlin)               
+# =============================================================================
+
             matrix_3d = dataLoad(filename, Nx, Ny, Nz)
             
             if matrix_3d is not None:
