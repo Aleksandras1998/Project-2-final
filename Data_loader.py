@@ -34,7 +34,7 @@ def dataLoader():
             
 
 #=============================================================================
-# Creating selection options of Nx x Ny x Nz + user defines the size him/herself
+# Creating selection options of Nx x Ny x Nz 
 #=============================================================================
               
             size=['32 x 32 x 8192','16 x 32 x 16384','8 x 16 x 65536'] # there are plenty of possibilities for input       
@@ -51,23 +51,23 @@ def dataLoader():
                                           "[7] Return to Main Menu\n"+
                                           ">>"))
                 if user_input_size == 1:
-                    Nx, Ny, Nz=[int(val) for val in size[user_input_size-1].split(' x ')]
+                    Nz, Ny, Nx=[int(val) for val in size[user_input_size-1].split(' x ')]
                     break
                     
                 elif user_input_size == 2:
-                    Nx, Ny, Nz=[int(val) for val in size[user_input_size-1].split(' x ')]
+                    Nz, Ny, Nx=[int(val) for val in size[user_input_size-1].split(' x ')]
                     break
                     
                 elif user_input_size == 3:
-                    Nx, Ny, Nz=[int(val) for val in size[user_input_size-1].split(' x ')]
+                    Nz, Ny, Nx=[int(val) for val in size[user_input_size-1].split(' x ')]
                     break
                     
                 elif user_input_size == 4:
-                    Nx, Ny, Nz=[int(val) for val in size[user_input_size-1].split(' x ')]
+                    Nz, Ny, Nx=[int(val) for val in size[user_input_size-1].split(' x ')]
                     break
                     
                 elif user_input_size == 5:
-                    Nx, Ny, Nz=[int(val) for val in size[user_input_size-1].split(' x ')]
+                    Nz, Ny, Nx=[int(val) for val in size[user_input_size-1].split(' x ')]
                     break 
                 
                 elif user_input_size == 6:

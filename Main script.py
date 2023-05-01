@@ -3,11 +3,11 @@
 
 from Data_loader import dataLoader 
 from Function_file import dataStatistics, dataPlot
-
+import numpy as np
 if __name__=='__main__':
 
 # =============================================================================
-#               Here we are creating User interaction Main menu
+#               creating User interaction Main menu
 # =============================================================================
     Nx=0
     Ny=0
@@ -30,7 +30,7 @@ if __name__=='__main__':
                                  '[3] Generate plots.\n'+
                                  '[4] Quit.\n'+
                                  '>>'))
-            if user_input >4 or user_input<1:
+            if user_input > 4 or user_input<1:
 
                 print('+'+'-'*52+'+')
                 print('|' + ' '*22 + 'WARNING!' + ' '*22 + '|')
@@ -47,9 +47,9 @@ if __name__=='__main__':
         if user_input == 1:
             matrix_3d=dataLoader()
             if matrix_3d is not None:
-                Nx=matrix_3d.shape[2]
+                Nx=matrix_3d.shape[0]
                 Ny=matrix_3d.shape[1]
-                Nz=matrix_3d.shape[0]
+                Nz=matrix_3d.shape[2]
                 data_loaded=True
 
 # =============================================================================
@@ -77,22 +77,135 @@ if __name__=='__main__':
                                                    "[4] Return to the the main menu\n"+
                                                    ">>"))
                     if user_input_statistic ==1:
+                           
+                        print('┏' + '━'*70 + '┓\n'+
+                              '┃Please enter Y, Z coordinates for which you want to calculate the mean┃\n'+
+                              '┗' + '━'*70 + '┛\n')
+                        while True:
+                            y=input('┏' + '━'*36 + '┓\n'+
+                                      f'┃Enter Y value in the range [0,{Ny})┃\n'+
+                                       '┗' + '━'*36+ '┛\n'+
+                                       'Y:').strip()
+                            if y.isdigit():
+                                y=int(y)
+                                
+                                #Checking if Y is not out of bound
+                                if y<0 or y>=Ny:
+                                    print('+' + '-' * 39 + '+\n' +
+                                          '|' + ' ' * 15 + 'ERROR!' + ' ' * 16 + '|\n' +
+                                         f'|Y coordinate should be within the range[0,{Ny})|\n'+
+                                          '|' + ' '*10 + ' Please try again' + ' '*10 + '|\n'+
+                                          '+' + '-' * 39 + '+')
+                                    continue 
+                                else:
+                                    break
+                            else:
+                                print()
+                                print('┏' + '━'*45 + '┓\n'+
+                                      '┃Please enter integer values for Y coordinate.┃\n'+
+                                      '┗' + '━'*45 + '┛\n')
+                                continue
+                            
+                        while True:
+                            z=input('┏' + '━'*45 + '┓\n'+
+                                      f'┃Enter Z coordinate value in the range[0,{Nz})┃\n'+
+                                       '┗' + '━'*45+ '┛\n'+
+                                       'Z:').strip()
+                            if z.isdigit():
+                                z=int(z)
+                                
+                                #Checking if Z is not out of bound
+                                if z<0 or z>=Nz:
+                                    print('+' + '-' * 47 + '+\n' +
+                                          '|' + ' ' * 16 + 'ERROR!' + ' ' * 17 + '|\n' +
+                                         f'|Z coordinate should be within the range[0,{Nz})|\n'+
+                                          '|' + ' '*11 + ' Please try again' + ' '*11 + '|\n'+
+                                          '+' + '-' * 47 + '+')
+                                    continue 
+                                else:
+                                    break
+                            else:
+                                print()
+                                print('┏' + '━'*34 + '┓\n'+
+                                      '┃Please enter integer values for Z.┃\n'+
+                                      '┗' + '━'*34 + '┛\n')
+                                continue
+                            
+                        
+                           
                         mean=dataStatistics(matrix_3d, statistic[user_input_statistic - 1]) #Calling mean function to return result
+                        message_box = f'The {statistic[user_input_statistic-1]} value for given Y, Z is {np.round(mean[y,z],3)}'
                         print()
-                        print('┏' + '━'*57 + '┓\n'+
-                             f'┃The {statistic[user_input_statistic-1]} values for each point in the Ny x Nz matrix are:┃\n'+
-                              '┗' + '━'*57 + '┛\n')
-                        print(mean) #Printing result
-                        #statistics_calculated=True
+                        print('┏' + '━'*len(message_box) + '┓\n'+
+                             f'┃{message_box}┃\n'+
+                              '┗' + '━'*len(message_box) + '┛\n')
+                        
+                       
+                        
                         
                     elif user_input_statistic == 2:
-                        variance=dataStatistics(matrix_3d, statistic[user_input_statistic - 1])
+                           
+                        print('┏' + '━'*74 + '┓\n'+
+                              '┃Please enter Y, Z coordinates for which you want to calculate the variance┃\n'+
+                              '┗' + '━'*74 + '┛\n')
+                        while True:
+                            y=input('┏' + '━'*36 + '┓\n'+
+                                      f'┃Enter Y value in the range [0,{Ny})┃\n'+
+                                       '┗' + '━'*36+ '┛\n'+
+                                       'Y:').strip()
+                            if y.isdigit():
+                                y=int(y)
+                                
+                                #Checking if Y is not out of bound
+                                if y<0 or y>=Ny:
+                                    print('+' + '-' * 39 + '+\n' +
+                                          '|' + ' ' * 15 + 'ERROR!' + ' ' * 16 + '|\n' +
+                                         f'|Y coordinate should be within the range[0,{Ny})|\n'+
+                                          '|' + ' '*10 + ' Please try again' + ' '*10 + '|\n'+
+                                          '+' + '-' * 39 + '+')
+                                    continue 
+                                else:
+                                    break
+                            else:
+                                print()
+                                print('┏' + '━'*45 + '┓\n'+
+                                      '┃Please enter integer values for Y coordinate.┃\n'+
+                                      '┗' + '━'*45 + '┛\n')
+                                continue
+                            
+                        while True:
+                            z=input('┏' + '━'*45 + '┓\n'+
+                                      f'┃Enter Z coordinate value in the range[0,{Nz})┃\n'+
+                                       '┗' + '━'*45+ '┛\n'+
+                                       'Z:').strip()
+                            if z.isdigit():
+                                z=int(z)
+                                
+                                #Checking if Z is not out of bound
+                                if z<0 or z>=Nz:
+                                    print('+' + '-' * 47 + '+\n' +
+                                          '|' + ' ' * 16 + 'ERROR!' + ' ' * 17 + '|\n' +
+                                         f'|Z coordinate should be within the range[0,{Nz})|\n'+
+                                          '|' + ' '*11 + ' Please try again' + ' '*11 + '|\n'+
+                                          '+' + '-' * 47 + '+')
+                                    continue 
+                                else:
+                                    break
+                            else:
+                                print()
+                                print('┏' + '━'*34 + '┓\n'+
+                                      '┃Please enter integer values for Z.┃\n'+
+                                      '┗' + '━'*34 + '┛\n')
+                                continue
+                            
+                      
+                        
+                        variance=dataStatistics(matrix_3d, statistic[user_input_statistic - 1]) #Calling variance function to return result
+                        message_box = f'The {statistic[user_input_statistic-1]} value for given Y, Z is {np.round(variance[y,z],3)}'
                         print()
-                        print('┏' + '━'*61 + '┓\n'+
-                             f'┃The {statistic[user_input_statistic-1]} values for each point in the Ny x Nz matrix are:┃\n'+
-                              '┗' + '━'*61 + '┛\n')
-                        print(variance)
-                        #statistics_calculated=True
+                        print('┏' + '━'*len(message_box) + '┓\n'+
+                             f'┃{message_box}┃\n'+
+                              '┗' + '━'*len(message_box) + '┛\n')
                         
                     elif user_input_statistic == 3:
                         print('┏' + '━'*65 + '┓\n'+
@@ -171,15 +284,67 @@ if __name__=='__main__':
                                 print('┏' + '━'*35 + '┓\n'+
                                       '┃Please enter integer values for Δx.┃\n'+
                                       '┗' + '━'*35 + '┛\n')
-                            continue
+                            
+                        print('┏' + '━'*83 + '┓\n'+
+                        '┃Please enter Y, Z coordinates for which you want to calculate the cross correlation┃\n'+
+                        '┗' + '━'*83 + '┛\n')
+                        while True:
+                            y=input('┏' + '━'*36 + '┓\n'+
+                                      f'┃Enter Y value in the range [0,{Ny})┃\n'+
+                                       '┗' + '━'*36+ '┛\n'+
+                                       'Y:').strip()
+                            if y.isdigit():
+                                y=int(y)
+                                
+                                #Checking if Y is not out of bound
+                                if y<0 or y>=Ny:
+                                    print('+' + '-' * 39 + '+\n' +
+                                          '|' + ' ' * 15 + 'ERROR!' + ' ' * 16 + '|\n' +
+                                         f'|Y coordinate should be within the range[0,{Ny})|\n'+
+                                          '|' + ' '*10 + ' Please try again' + ' '*10 + '|\n'+
+                                          '+' + '-' * 39 + '+')
+                                    continue 
+                                else:
+                                    break
+                            else:
+                                print()
+                                print('┏' + '━'*45 + '┓\n'+
+                                      '┃Please enter integer values for Y coordinate.┃\n'+
+                                      '┗' + '━'*45 + '┛\n')
+                                continue
+                            
+                        while True:
+                            z=input('┏' + '━'*45 + '┓\n'+
+                                      f'┃Enter Z coordinate value in the range[0,{Nz})┃\n'+
+                                       '┗' + '━'*45+ '┛\n'+
+                                       'Z:').strip()
+                            if z.isdigit():
+                                z=int(z)
+                                
+                                #Checking if Z is not out of bound
+                                if z<0 or z>=Nz:
+                                    print('+' + '-' * 47 + '+\n' +
+                                          '|' + ' ' * 16 + 'ERROR!' + ' ' * 17 + '|\n' +
+                                         f'|Z coordinate should be within the range[0,{Nz})|\n'+
+                                          '|' + ' '*11 + ' Please try again' + ' '*11 + '|\n'+
+                                          '+' + '-' * 47 + '+')
+                                    continue 
+                                else:
+                                    break
+                            else:
+                                print()
+                                print('┏' + '━'*34 + '┓\n'+
+                                      '┃Please enter integer values for Z.┃\n'+
+                                      '┗' + '━'*34 + '┛\n')
+                                continue
                             
                         cross_cor=dataStatistics(matrix_3d, statistic[user_input_statistic - 1], Yref, Zref, DeltaX)
                         print()
-                        print('┏' + '━'*33 + '┓\n'+
-                             f'┃The {statistic[user_input_statistic-1]} values are:┃\n'+
-                              '┗' + '━'*33 + '┛\n')
-                        print(cross_cor)
-                        #statistics_calculated=True
+                        print('┏' + '━'*49 + '┓\n'+
+                             f'┃The {statistic[user_input_statistic-1]} value is:┃\n'+
+                              '┗' + '━'*49 + '┛\n')
+                        print(np.round(cross_cor[y,z]))
+                    
                             
 
                     elif user_input_statistic == 4:
@@ -201,12 +366,7 @@ if __name__=='__main__':
                       '|' + ' '*16 + 'WARNING!' + ' '*16 + '|\n'+
                       '|' + ' '*3 + 'Please load data before continuing' + ' '*3 + '|\n'+
                       '+' + '-'*40 + '+') 
-            # elif not statistics_calculated:
-            #     print()
-            #     print('+'+'-'*40+'+\n'+
-            #           '|' + ' '*16 + 'WARNING!' + ' '*16 + '|\n'+
-            #           '|' + ' '*3 + 'Please do statistic calculations before plotting' + ' '*3 + '|\n'+
-            #           '+' + '-'*40 + '+') # change description of an error to 'Please do cross-correlation statistics before generating plot'
+           
             else:
                 plots=['Mean','Variance','Cross-Correlation']
                 
@@ -232,10 +392,10 @@ if __name__=='__main__':
                     elif user_input_plot == 3:
                         if Yref is None or Zref is None or DeltaX is None:
                             print()
-                            print('+'+'-'*40+'+\n'+
+                            print('+'+'-'*53+'+\n'+
                                   '|' + ' '*16 + 'WARNING!' + ' '*16 + '|\n'+
                                   '|' + ' '*3 + 'Please do cross-correlation statistic before plotting' + ' '*3 + '|\n'+
-                                  '+' + '-'*40 + '+')
+                                  '+' + '-'*53 + '+')
                         else:
                             plot_data=dataPlot(cross_cor, plots[user_input_plot - 1])
                     elif user_input_plot ==4:
